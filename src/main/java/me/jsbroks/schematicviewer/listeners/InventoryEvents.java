@@ -13,8 +13,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import javax.swing.text.View;
-
 public class InventoryEvents implements Listener {
 
     private SchematicViewer schematicViewer;
@@ -65,7 +63,7 @@ public class InventoryEvents implements Listener {
 
                         if (icon instanceof Schematic) {
                             //TODO: Add a confirmation window
-                            ((Schematic) icon).paste(player.getWorld(), player.getLocation());
+                            ((Schematic) icon).paste(player);
                         }
                     }
 

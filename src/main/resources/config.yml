@@ -1,3 +1,5 @@
 Messages:
   PermissionDenied: '&cYou do not have permission to use this command.'
   InvalidFolder: '&cYou entered an invalid folder.'
+  Pasting: '&aPasting schematic, this might lag the server for a few seconds.'
+  DonePasting: '&aDone! Schematic has been pasted.'

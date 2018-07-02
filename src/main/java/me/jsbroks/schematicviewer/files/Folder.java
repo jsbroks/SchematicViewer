@@ -81,13 +81,22 @@ public class Folder implements Icon {
         return this.schematics;
     }
 
-    public int getFilesLength() {
-        return this.schematics.size() + this.subFolders.size();
-    }
-
     @Override
     public File getFile() {
         return directory;
+    }
+
+    private static long folderSize(File directory) {
+        File[] files = directory.listFiles();
+        if (files == null) return 0;
+        long length = 0;
+        for (File file : files) {
+            if (file.isFile())
+                length += file.length();
+            else
+                length += folderSize(file);
+        }
+        return length;
     }
 
     @Override
@@ -96,7 +105,14 @@ public class Folder implements Icon {
         item.withName("&r" + directory.getName());
 
         List<String> lore = new ArrayList<>();
+        lore.add("Size: " + getSize());
         item.withLore(lore);
         return item.build();
     }
+
+    @Override
+    public long getSize() {
+        return folderSize(directory);
+    }
+
 }

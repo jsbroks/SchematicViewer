@@ -8,5 +8,6 @@ public interface Icon {
 
     ItemStack createItem();
     File getFile();
+    long getSize();
 
 }

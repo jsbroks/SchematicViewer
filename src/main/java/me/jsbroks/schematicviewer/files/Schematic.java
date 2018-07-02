@@ -1,11 +1,17 @@
 package me.jsbroks.schematicviewer.files;
 
 import com.sk89q.jnbt.*;
+import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.schematic.SchematicFormat;
+import me.jsbroks.schematicviewer.Config;
 import me.jsbroks.schematicviewer.utils.ItemStackBuilder;
+import me.jsbroks.schematicviewer.utils.TextUtil;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
@@ -36,28 +42,20 @@ public class Schematic implements Icon {
         this.isValid = width > 0 && height > 0 && length > 0;
     }
 
-    public byte[] getBlocks() {
-        return blocks;
+    private static void pasteSchematic(Schematic schematic, World world, Location loc) {
+
+        com.sk89q.worldedit.Vector to = new com.sk89q.worldedit.Vector(loc.getX(), loc.getY(), loc.getZ());
+        com.sk89q.worldedit.world.World worldEditWorld = new BukkitWorld(world);
+        EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(worldEditWorld, -1);
+        try {
+            SchematicFormat.getFormat(schematic.file).load(schematic.file).paste(editSession, to, false, true);
+            editSession.flushQueue();
+        } catch (Exception ignore) {}
     }
 
-    public byte[] getData() {
-        return data;
-    }
-
-    public short getWidth() {
-        return width;
-    }
-
-    public short getLength() {
-        return length;
-    }
-
-    public short getHeight() {
-        return height;
-    }
-
-    public boolean isValid() {
-        return isValid;
+    @Override
+    public File getFile() {
+        return file;
     }
 
     @Override
@@ -71,31 +69,30 @@ public class Schematic implements Icon {
             lore.add("&7Invalid schematic");
         } else {
             itemStackBuilder.withName("&r&a" + file.getName().replace(".schematic", ""));
-            lore.add("&7Blocks: " + blocks.toString());
             lore.add("&7Size: " + length + "x" + width + "x" + height);
+            lore.add("");
+            lore.add("&7" + getSize() + " blocks");
         }
+
         itemStackBuilder.withLore(lore);
         return itemStackBuilder.build();
     }
 
     @Override
-    public File getFile() {
-        return file;
+    public long getSize() {
+        return length * width * height;
     }
 
-    public void paste(World world, Location loc) {
+    public void paste(final Player player) {
 
         if (!isValid) return;
 
-        for (int x = 0; x < width; ++x) {
-            for (int y = 0; y < height; ++y) {
-                for (int z = 0; z < length; ++z) {
-                    int index = y * width * length + z * width + x;
-                    Block block = new Location(world, x + loc.getX(), y + loc.getY(), z + loc.getZ()).getBlock();
-                    block.setTypeIdAndData(blocks[index], data[index], true);
-                }
-            }
-        }
+        //TODO: Add timing variable
+        player.closeInventory();
+        player.sendMessage(TextUtil.colorize(Config.config.getString("Messages.Pasting")));
+        pasteSchematic(this, player.getWorld(), player.getLocation());
+        player.sendMessage(TextUtil.colorize(Config.config.getString("Messages.DonePasting")));
+
     }
 
     public static Schematic loadSchematic(File file) {
