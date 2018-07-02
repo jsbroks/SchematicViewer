@@ -1,0 +1,13 @@
+name: ${pom.artifactId}
+main: me.jsbroks.schematicviewer.SchematicViewer
+version: ${pom.version}
+author: jsbroks
+
+depend: [WorldEdit]
+database: false
+
+commands:
+  schematics:
+    description: Open schematics viewer
+    usage: /<command>
+    aliases: [sch, sv]
