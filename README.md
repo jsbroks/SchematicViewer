@@ -1,7 +1,7 @@
 # SchematicViewer
 Browse schematics though a clean and simple GUI.
 
-### Features
+## Features
 - Simple GUI to view schematics
 - Custom sort options
 - Render any schematic
@@ -10,20 +10,20 @@ Browse schematics though a clean and simple GUI.
 - Open source!
 - Requires WorldEdit
 
-### Commands
+## Commands
 `/<schematic|sch|sv>` - Brings up default directory
 `/sv page <number>` - Display the page of your last search
 `/sv [parameters]` - Searches based on parameters provided
 
-####Parameters
+### Parameters
 `path=<directory>` - Directory to load relative to the WorldEdit schematic directory (default: /, alias: p)
 `compare=<comparetype>` - Sort results by this type (default: name, alias: c)
 `foldersfirst=<boolean>` - Place folders first in the results (default: true, alias: ff)
 
-####Compare Types
+### Compare Types
 `NAME` - sorts in alphabetical order
 
-####Support & Bugs
+### Support & Bugs
 - Paramters cannot contain spaces
 - Java 8+ (uses lamada expressions)
 
