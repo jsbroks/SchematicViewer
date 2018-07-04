@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 public class Viewer {
@@ -45,9 +44,7 @@ public class Viewer {
         this.views = new ArrayList<>();
         int count = 0;
         for (Icon icon : items) {
-            System.out.println(Math.ceil(count / FILES_PER_VIEW) - views.size());
             if (Math.ceil(count / FILES_PER_VIEW) - views.size() == 0) {
-                System.out.println("Creating new inve");
                 views.add(new ViewPage(views.size() + 1));
             }
 
@@ -84,7 +81,6 @@ public class Viewer {
     }
 
     public Inventory nextPage() {
-        System.out.println(currentPage);
         if (currentPage >= views.size() - 1) { return getInventory(views.size() - 1); }
 
         return getInventory(currentPage + 1);

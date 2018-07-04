@@ -52,7 +52,6 @@ public class InventoryEvents implements Listener {
                         Icon icon = viewer.getItems().get(slot + (page - 1) * Viewer.FILES_PER_VIEW);
 
                         if (icon instanceof Folder) {
-                            System.out.println(icon.getFile().getPath());
                             Viewer newViewer = new Viewer((Folder) icon, player,
                                     viewer.getCompare(),
                                     viewer.isDisplayFoldersFirst());
@@ -63,6 +62,7 @@ public class InventoryEvents implements Listener {
 
                         if (icon instanceof Schematic) {
                             //TODO: Add a confirmation window
+                            //TODO: Add undo button
                             ((Schematic) icon).paste(player);
                         }
                     }

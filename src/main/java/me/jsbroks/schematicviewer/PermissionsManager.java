@@ -15,7 +15,6 @@ public class PermissionsManager {
 
     public String filePermission(File file) {
         String path = file.getPath().replaceAll(schematicViewer.getSchematicDirectory().getPath(), "");
-        System.out.println(path);
         return BASE_PERM + "file." + path.replaceAll("/", ".");
     }
 
