@@ -2,8 +2,8 @@ package me.jsbroks.schematicviewer.views;
 
 import me.jsbroks.schematicviewer.SchematicViewer;
 import me.jsbroks.schematicviewer.files.CompareType;
+import me.jsbroks.schematicviewer.files.FileStructure;
 import me.jsbroks.schematicviewer.files.Folder;
-import me.jsbroks.schematicviewer.files.Icon;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -16,7 +16,7 @@ public class Viewer {
     private boolean displayFoldersFirst;
     private int numberOfPages;
     private List<ViewPage> views;
-    private List<Icon> items;
+    private List<FileStructure> items;
     private CompareType compareType;
 
     private int currentPage;
@@ -43,14 +43,14 @@ public class Viewer {
 
         this.views = new ArrayList<>();
         int count = 0;
-        for (Icon icon : items) {
+        for (FileStructure fileStructure : items) {
             if (Math.ceil(count / FILES_PER_VIEW) - views.size() == 0) {
                 views.add(new ViewPage(views.size() + 1));
             }
 
-            if (player.hasPermission(SchematicViewer.perms.filePermission(icon.getFile()))) {
+            if (player.hasPermission(SchematicViewer.perms.filePermission(fileStructure.getFile()))) {
                 ViewPage viewPage = views.get(views.size() - 1);
-                viewPage.addIcon(icon.createItem());
+                viewPage.addIcon(fileStructure.createItem());
                 count++;
             }
         }
@@ -91,7 +91,7 @@ public class Viewer {
         return getInventory(currentPage - 1);
     }
 
-    public List<Icon> getItems() {
+    public List<FileStructure> getItems() {
         return items;
     }
 

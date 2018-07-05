@@ -9,7 +9,7 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Folder implements Icon {
+public class Folder implements FileStructure {
 
     private List<Folder> subFolders;
     private List<Schematic> schematics;

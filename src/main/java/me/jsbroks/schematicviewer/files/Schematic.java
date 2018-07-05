@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
-public class Schematic implements Icon {
+public class Schematic implements FileStructure {
 
     private byte[] blocks;
     private byte[] data;

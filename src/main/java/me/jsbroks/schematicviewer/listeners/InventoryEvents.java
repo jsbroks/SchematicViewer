@@ -1,8 +1,8 @@
 package me.jsbroks.schematicviewer.listeners;
 
 import me.jsbroks.schematicviewer.SchematicViewer;
+import me.jsbroks.schematicviewer.files.FileStructure;
 import me.jsbroks.schematicviewer.files.Folder;
-import me.jsbroks.schematicviewer.files.Icon;
 import me.jsbroks.schematicviewer.files.Schematic;
 import me.jsbroks.schematicviewer.views.ViewPage;
 import me.jsbroks.schematicviewer.views.Viewer;
@@ -49,10 +49,10 @@ public class InventoryEvents implements Listener {
 
                     if (slot < 9*5) {
                         int page = Integer.valueOf(inventory.getName().replaceAll("[^\\d.]", ""));
-                        Icon icon = viewer.getItems().get(slot + (page - 1) * Viewer.FILES_PER_VIEW);
+                        FileStructure fileStructure = viewer.getItems().get(slot + (page - 1) * Viewer.FILES_PER_VIEW);
 
-                        if (icon instanceof Folder) {
-                            Viewer newViewer = new Viewer((Folder) icon, player,
+                        if (fileStructure instanceof Folder) {
+                            Viewer newViewer = new Viewer((Folder) fileStructure, player,
                                     viewer.getCompare(),
                                     viewer.isDisplayFoldersFirst());
 
@@ -60,10 +60,10 @@ public class InventoryEvents implements Listener {
                             player.openInventory(newViewer.getInventory(0));
                         }
 
-                        if (icon instanceof Schematic) {
+                        if (fileStructure instanceof Schematic) {
                             //TODO: Add a confirmation window
                             //TODO: Add undo button
-                            ((Schematic) icon).paste(player);
+                            ((Schematic) fileStructure).paste(player);
                         }
                     }
 

@@ -6,18 +6,18 @@ public enum CompareType {
 
     NAME() {
         @Override
-        public Comparator<Icon> getComparator() {
-            return (icon1, icon2) -> {
+        public Comparator<FileStructure> getComparator() {
+            return (fileStruct1, fileStruct2) -> {
                 int res = String.CASE_INSENSITIVE_ORDER
-                        .compare(icon1.getFile().getName(), icon1.getFile().getName());
+                        .compare(fileStruct1.getFile().getName(), fileStruct2.getFile().getName());
 
                 if (res == 0) {
-                    res = icon1.getFile().getName().compareTo(icon2.getFile().getName());
+                    res = fileStruct1.getFile().getName().compareTo(fileStruct2.getFile().getName());
                 }
                 return res;
             };
         }
     };
 
-    public abstract Comparator<Icon> getComparator();
+    public abstract Comparator<FileStructure> getComparator();
 }

@@ -4,7 +4,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 
-public interface Icon {
+public interface FileStructure {
 
     ItemStack createItem();
     File getFile();
