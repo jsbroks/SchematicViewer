@@ -45,7 +45,7 @@ public class InventoryEvents implements Listener {
                 ItemStack item = event.getCurrentItem();
 
                 if (item.hasItemMeta()) {
-                    String name = item.getItemMeta().getDisplayName();
+                    String name = item.getItemMeta().getDisplayName().toLowerCase();
 
                     if (slot < 9*5) {
                         int page = Integer.valueOf(inventory.getName().replaceAll("[^\\d.]", ""));
@@ -67,12 +67,17 @@ public class InventoryEvents implements Listener {
                         }
                     }
 
-                    if (name.toLowerCase().contains("next")) {
+                    if (name.contains("next")) {
                         player.openInventory(viewer.nextPage());
-                    }
 
-                    if (name.toLowerCase().contains("previous")) {
+                    } else if (name.contains("previous")) {
                         player.openInventory(viewer.previousPage());
+
+                    } else if (name.contains("undo")) {
+
+
+                    } else if (name.contains("back")) {
+
                     }
                 }
 

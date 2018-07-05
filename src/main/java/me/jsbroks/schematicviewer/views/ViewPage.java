@@ -1,5 +1,6 @@
 package me.jsbroks.schematicviewer.views;
 
+import me.jsbroks.schematicviewer.utils.ItemIcons;
 import me.jsbroks.schematicviewer.utils.ItemStackBuilder;
 import me.jsbroks.schematicviewer.utils.TextUtil;
 import org.bukkit.Bukkit;
@@ -16,19 +17,28 @@ public class ViewPage {
 
     private final int NEXT_POSITION = 53;
     private final int PREVIOUS_POSITION = 45;
+    private final int UNDO_POSITION = 45;
+    private final int BACK_POSITION = 45;
 
-    public ViewPage(int pageNum) {
+    public ViewPage(int pageNum, boolean hasBack) {
         this.inventory = Bukkit.createInventory(null, 6*9, "Schematic Viewer (Page: " + pageNum + ")");
-        this.inventory.setItem(NEXT_POSITION, nextItem());
-        this.inventory.setItem(PREVIOUS_POSITION, previousItem());
+
+        this.inventory.setItem(NEXT_POSITION, ItemIcons.nextItem());
+        this.inventory.setItem(PREVIOUS_POSITION, ItemIcons.previousItem());
+
+        //TODO: Add undo functionality
+        //this.inventory.setItem(UNDO_POSITION, ItemIcons.undoItem());
+
+        //TODO: ADd back functionality
+        if (hasBack) this.inventory.setItem(BACK_POSITION, ItemIcons.backItem());
     }
 
     public void hasNoNext() {
-        this.inventory.setItem(NEXT_POSITION, noNextItem());
+        this.inventory.setItem(NEXT_POSITION, ItemIcons.noNextItem());
     }
 
     public void hasNoPrevious() {
-        this.inventory.setItem(PREVIOUS_POSITION, noPreviousItem());
+        this.inventory.setItem(PREVIOUS_POSITION, ItemIcons.noPreviousItem());
     }
 
     public void addIcon(ItemStack item) {
@@ -37,34 +47,6 @@ public class ViewPage {
 
     public Inventory getInventory() {
         return inventory;
-    }
-
-    private static ItemStack nextItem() {
-        ItemStackBuilder item = new ItemStackBuilder(Material.INK_SACK).hideAttributes();
-        item.withName("&aNext");
-        item.withData(10);
-        return item.build();
-    }
-
-    private static ItemStack noNextItem() {
-        ItemStackBuilder item = new ItemStackBuilder(Material.INK_SACK).hideAttributes();
-        item.withName("&7Next");
-        item.withData(8);
-        return item.build();
-    }
-
-    private static ItemStack previousItem() {
-        ItemStackBuilder item = new ItemStackBuilder(Material.INK_SACK).hideAttributes();
-        item.withName("&aPrevious");
-        item.withData(10);
-        return item.build();
-    }
-
-    private static ItemStack noPreviousItem() {
-        ItemStackBuilder item = new ItemStackBuilder(Material.INK_SACK).hideAttributes();
-        item.withName("&7Previous");
-        item.withData(8);
-        return item.build();
     }
 
     public static Inventory helpMenu(String message, String path) {

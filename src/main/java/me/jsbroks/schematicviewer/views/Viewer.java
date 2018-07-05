@@ -45,7 +45,7 @@ public class Viewer {
         int count = 0;
         for (FileStructure fileStructure : items) {
             if (Math.ceil(count / FILES_PER_VIEW) - views.size() == 0) {
-                views.add(new ViewPage(views.size() + 1));
+                views.add(new ViewPage(views.size() + 1, false));
             }
 
             if (player.hasPermission(SchematicViewer.perms.filePermission(fileStructure.getFile()))) {
@@ -56,7 +56,7 @@ public class Viewer {
         }
 
         if (views.isEmpty()) {
-            views.add(new ViewPage(views.size() + 1));
+            views.add(new ViewPage(views.size() + 1, false));
         }
 
         views.get(0).hasNoPrevious();
